@@ -197,4 +197,10 @@ describe('Conjured items', () => {
     expect(item.quality).toBe(0);
     expect(item.sellIn).toBe(-1);
   });
+
+  it('applies to any item whose name starts with Conjured', () => {
+    const item = updateItem('Conjured Elixir', 10, 20);
+    expect(item.quality).toBe(18);
+    expect(item.sellIn).toBe(9);
+  });
 });
