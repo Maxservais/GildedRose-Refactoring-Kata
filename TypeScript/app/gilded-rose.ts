@@ -34,6 +34,36 @@ function decreaseQuality(item: Item): void {
   }
 }
 
+function updateAgedBrie(item: Item): void {
+  increaseQuality(item);
+  item.sellIn -= 1;
+  if (item.sellIn < 0) {
+    increaseQuality(item);
+  }
+}
+
+function updateBackstagePass(item: Item): void {
+  increaseQuality(item);
+  if (item.sellIn < 11) {
+    increaseQuality(item);
+  }
+  if (item.sellIn < 6) {
+    increaseQuality(item);
+  }
+  item.sellIn -= 1;
+  if (item.sellIn < 0) {
+    item.quality = 0;
+  }
+}
+
+function updateNormalItem(item: Item): void {
+  decreaseQuality(item);
+  item.sellIn -= 1;
+  if (item.sellIn < 0) {
+    decreaseQuality(item);
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -45,36 +75,16 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
 
-      if (!isAgedBrie(item) && !isBackstagePass(item)) {
-        if (!isSulfuras(item)) {
-          decreaseQuality(item);
-        }
+      if (isSulfuras(item)) {
+        continue;
+      }
+
+      if (isAgedBrie(item)) {
+        updateAgedBrie(item);
+      } else if (isBackstagePass(item)) {
+        updateBackstagePass(item);
       } else {
-        increaseQuality(item);
-        if (isBackstagePass(item)) {
-          if (item.sellIn < 11) {
-            increaseQuality(item);
-          }
-          if (item.sellIn < 6) {
-            increaseQuality(item);
-          }
-        }
-      }
-      if (!isSulfuras(item)) {
-        item.sellIn -= 1;
-      }
-      if (item.sellIn < 0) {
-        if (!isAgedBrie(item)) {
-          if (!isBackstagePass(item)) {
-            if (!isSulfuras(item)) {
-              decreaseQuality(item);
-            }
-          } else {
-            item.quality = 0;
-          }
-        } else {
-          increaseQuality(item);
-        }
+        updateNormalItem(item);
       }
     }
 
