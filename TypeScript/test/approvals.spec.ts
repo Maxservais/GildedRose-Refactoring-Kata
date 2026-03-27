@@ -1,25 +1,15 @@
 import { execSync } from 'node:child_process';
-import { Item, GildedRose } from '@/gilded-rose';
 
 /**
  * This test uses Vitest Snapshot, similar to [Jest Snapshot](https://goo.gl/fbAQLP).
  *
- * There are two test cases here with different styles:
- * <li>"foo" is more similar to the unit test from the 'Java' version
- * <li>"thirtyDays" is more similar to the TextTest from the 'Java' version
- *
- * I suggest choosing one style to develop and deleting the other.
+ * It runs the golden-master text test for 30 days and snapshots the full output.
+ * This acts as a safety net: any change in behavior across any item type will
+ * show up as a snapshot diff.
  */
 
 describe('Gilded Rose Approval', () => {
-  it('should foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
-
-    expect(items).toMatchSnapshot();
-  });
-
-  it('should thirtyDays', () => {
+  it('should match 30-day golden master', () => {
     const consoleOutput = execSync(
       'ts-node test/golden-master-text-test.ts 30',
       { encoding: 'utf-8' }
