@@ -11,19 +11,19 @@ export class Item {
 }
 
 function isAgedBrie(item: Item): boolean {
-  return item.name === 'Aged Brie';
+  return item.name === "Aged Brie";
 }
 
 function isBackstagePass(item: Item): boolean {
-  return item.name === 'Backstage passes to a TAFKAL80ETC concert';
+  return item.name === "Backstage passes to a TAFKAL80ETC concert";
 }
 
 function isSulfuras(item: Item): boolean {
-  return item.name === 'Sulfuras, Hand of Ragnaros';
+  return item.name === "Sulfuras, Hand of Ragnaros";
 }
 
 function isConjured(item: Item): boolean {
-  return item.name.startsWith('Conjured');
+  return item.name.startsWith("Conjured");
 }
 
 function increaseQuality(item: Item): void {
